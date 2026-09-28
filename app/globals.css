@@ -1,0 +1,352 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ::selection {
+    background: rgba(63, 191, 174, 0.3);
+    color: #fff;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Clears the fixed 64px header when jumping to an anchor. */
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    @apply bg-base text-ink font-body antialiased;
+    font-feature-settings: "ss1" on, "ss2" on, "cv1" on;
+    /* Horizontal overflow is the #1 cause of mobile layout breaks with large
+       display type and 3D canvases. */
+    overflow-x: hidden;
+  }
+
+  /* The marquee and oversized headings are decorative overflow; without this
+     they create a scrollable strip on narrow viewports. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-balance;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.signal.DEFAULT");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Firefox scrollbar tint to match the dark shell. */
+  html {
+    scrollbar-color: theme("colors.line.strong") theme("colors.base.DEFAULT");
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: theme("colors.base.DEFAULT");
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme("colors.line.strong");
+    border: 3px solid theme("colors.base.DEFAULT");
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme("colors.copper.dim");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ================================================================
+     LAYOUT
+     ================================================================ */
+
+  .container-page {
+    @apply mx-auto w-full max-w-editorial px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Full-bleed wrapper for edge-to-edge editorial bands. */
+  .container-bleed {
+    @apply mx-auto w-full max-w-[1680px] px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Section rhythm. Every major movement on the page uses this. */
+  .section-y {
+    @apply py-20 sm:py-28 lg:py-40;
+  }
+
+  /* ================================================================
+     TYPOGRAPHY
+     ================================================================ */
+
+  /* Eyebrow / running head. The mono label with a leading accent tick. */
+  .pad-label {
+    @apply inline-flex items-center gap-2.5 font-mono text-micro uppercase;
+  }
+  .pad-label::before {
+    content: "";
+    @apply block h-[6px] w-[6px] shrink-0;
+  }
+  .pad-label--copper {
+    @apply text-copper;
+  }
+  .pad-label--copper::before {
+    @apply bg-copper;
+  }
+  .pad-label--signal {
+    @apply text-signal;
+  }
+  .pad-label--signal::before {
+    @apply bg-signal;
+  }
+
+  /* Section heading. Set as a graphic element, one word/line per array item. */
+  .display-heading {
+    @apply font-display text-display-lg uppercase text-ink;
+  }
+
+  /* Body copy at reading size. */
+  .lede {
+    @apply text-lede leading-relaxed text-ink-muted;
+  }
+
+  .prose-body {
+    @apply text-[0.975rem] leading-[1.75] text-ink-muted;
+  }
+
+  /* Vertical or horizontal running text, e.g. along a photo edge. */
+  .vertical-label {
+    @apply font-mono text-micro uppercase text-ink-faint;
+    writing-mode: vertical-rl;
+  }
+
+  /* ================================================================
+     RULES & FRAMES
+     ================================================================ */
+
+  /* Vertical hairline that draws itself downward when scrolled into view. */
+  .trace-line {
+    @apply relative;
+  }
+  .trace-line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform-origin: top;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      theme("colors.line.strong") 10%,
+      theme("colors.line.strong") 90%,
+      transparent
+    );
+  }
+
+  /* Horizontal rule with an accent segment at its start. */
+  .rule-accent {
+    @apply relative h-px w-full bg-line;
+  }
+  .rule-accent::before {
+    content: "";
+    @apply absolute left-0 top-0 h-px w-16;
+    background: theme("colors.copper.DEFAULT");
+  }
+
+  /* Thin paper-like frame for photographic objects. */
+  .frame-hair {
+    @apply border border-line-strong;
+  }
+
+  /* ================================================================
+     TEXTURE
+     ================================================================ */
+
+  /* Film grain overlay. `pointer-events-none` + fixed positioning so it reads
+     as a film plane over the whole document rather than a per-section wash. */
+  .grain-overlay {
+    @apply pointer-events-none fixed inset-0 z-[60] bg-grain opacity-[0.035] mix-blend-overlay;
+    animation: grainShift 6s steps(1) infinite;
+  }
+
+  /* Tighter grain for the black & white editorial portrait. */
+  .grain-heavy {
+    @apply pointer-events-none absolute inset-0 bg-grain opacity-[0.09] mix-blend-overlay;
+  }
+
+  /* Dot-matrix / circuit substrate. */
+  .substrate {
+    @apply bg-grid bg-[size:44px_44px];
+    -webkit-mask-image: radial-gradient(100% 70% at 50% 0%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(100% 70% at 50% 0%, #000 0%, transparent 78%);
+  }
+
+  /* ================================================================
+     PHOTOGRAPHY
+     ================================================================ */
+
+  /* The black & white editorial treatment for the My Story portrait.
+     Natural monochrome (no duotone), lifted blacks, gentle contrast, plus a
+     grain plane. Applied in CSS so the source file stays untouched. */
+  .bw-editorial {
+    filter: grayscale(1) contrast(1.06) brightness(1.02);
+  }
+
+  /* Slight warm paper cast, used on the same portrait behind the grain. */
+  .paper-cast {
+    background: linear-gradient(
+      180deg,
+      rgba(201, 121, 63, 0.05) 0%,
+      transparent 38%,
+      rgba(7, 10, 12, 0.55) 100%
+    );
+  }
+
+  /* Cursor-reactive zoom for plain <img> frames. Components that drive the
+     transform in JS (MediaFrame) opt out and manage it themselves. */
+  .cursor-zoom {
+    @apply overflow-hidden;
+  }
+  .cursor-zoom > img {
+    @apply transition-transform duration-[900ms] ease-editorial;
+    will-change: transform;
+  }
+  .cursor-zoom:hover > img {
+    transform: scale(1.045);
+  }
+  .cursor-zoom--static > img,
+  .cursor-zoom--static:hover > img {
+    transform: none;
+  }
+
+  /* A one-shot light sweep across a frame on hover. */
+  .sheen::after {
+    content: "";
+    @apply pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+  .sheen:hover::after {
+    animation: sheen 1.1s ease-out;
+  }
+
+  /* ================================================================
+     CONTROLS
+     ================================================================ */
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2.5 bg-copper px-6 py-3.5 font-mono text-xs uppercase tracking-wide2 text-base transition-colors duration-200 hover:bg-copper-bright;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2.5 border border-line-strong px-6 py-3.5 font-mono text-xs uppercase tracking-wide2 text-ink transition-colors duration-200 hover:border-signal hover:text-signal;
+  }
+
+  /* RFID-scan sweep, a nod to Kaaraange's scan-to-open feature. */
+  .btn-scan {
+    @apply relative overflow-hidden;
+  }
+  .btn-scan .scan-sweep {
+    content: "";
+    @apply pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0;
+  }
+  .btn-scan:hover .scan-sweep {
+    @apply opacity-100;
+    animation: scan 1.1s ease-in-out;
+  }
+
+  /* Monogram chip: the PDS mark used in the navbar and as a signature. */
+  .monogram {
+    @apply flex items-center justify-center border font-display font-bold leading-none;
+  }
+
+  /* Live status dot. */
+  .status-dot {
+    @apply relative inline-block h-[6px] w-[6px] rounded-full bg-signal;
+  }
+  .status-dot::after {
+    content: "";
+    @apply absolute inset-0 rounded-full bg-signal;
+    animation: breathe 2.8s ease-in-out infinite;
+  }
+
+  /* Small technical readout, e.g. a photo's capture context. */
+  .hud-panel {
+    @apply border border-line-strong/70 bg-base-panel/60 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint backdrop-blur-sm;
+  }
+
+  /* Hero-only helper retained from the previous build. */
+  .hero-title-glow {
+    text-shadow: 0 0 60px rgba(63, 191, 174, 0.16), 0 0 140px rgba(201, 121, 63, 0.08);
+  }
+
+  /* ================================================================
+     UTILITIES
+     ================================================================ */
+
+  /* Hides content visually but keeps it for assistive tech. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    @apply sr-only;
+  }
+
+  /* Native dialog reset for the lightbox / document modal. */
+  .modal-root {
+    @apply fixed inset-0 z-[80] flex items-center justify-center bg-base-deep/90 p-4 backdrop-blur-md sm:p-8;
+  }
+
+  /* CRITICAL — do not remove.
+     `.modal-root` sets `display: flex` in the author origin, which beats the
+     user-agent rule `dialog:not([open]) { display: none }` regardless of
+     specificity (author origin always wins over UA origin). Without this, both
+     closed dialogs — the Moments lightbox and the Recognition document viewer —
+     paint a full-screen fixed, z-80, blurred backdrop over the entire page and
+     swallow every click. Re-assert the hidden state in the author origin. */
+  .modal-root:not([open]) {
+    display: none;
+  }
+
+  .modal-panel {
+    @apply relative max-h-full w-full max-w-4xl overflow-auto;
+  }
+}
+
+@layer utilities {
+  /* Split-flap / stagger reveal for display headings, applied per line. */
+  .line-mask {
+    @apply block overflow-hidden;
+  }
+  .line-mask > span {
+    @apply block;
+  }
+
+  /* Hairline that grows from the left when its section enters view. */
+  .grow-x {
+    transform-origin: left;
+  }
+
+  /* Forces a new stacking/containing block for the 3D canvas. */
+  .gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
