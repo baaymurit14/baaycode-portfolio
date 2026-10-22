@@ -52,13 +52,13 @@ const m = (
  * ------------------------------------------------------------------ */
 
 export const media = {
-  /** Hero — the professional identity shot. Colour, landscape. */
+  /** Hero — the professional identity shot. Colour, portrait. */
   hero: m(
-    "/images/profile/hero.jpeg",
-    1080,
-    719,
-    "Pape Djibril Sène, développeur Full-Stack & IoT",
-    { position: "50% 32%" }
+    "/images/profile/profile.jpeg",
+    764,
+    1280,
+    "Pape Djibril SÉNE, développeur Full-Stack & IoT",
+    { position: "50% 30%" }
   ),
 
   /**
@@ -70,7 +70,7 @@ export const media = {
     "/images/personal/portrait-story.jpeg",
     810,
     1080,
-    "Portrait en noir et blanc de Pape Djibril Sène",
+    "Portrait en noir et blanc de Pape Djibril SÉNE",
     { position: "50% 28%" }
   ),
 
@@ -79,12 +79,12 @@ export const media = {
     "/images/profile/drone.jpeg",
     720,
     960,
-    "Pape Djibril Sène avec un drone lors d'une séance de pilotage",
+    "Pape Djibril SÉNE avec un drone lors d'une séance de pilotage",
     { position: "50% 40%" }
   ),
 
   /** Secondary portrait — used small, as a signature mark. */
-  profile: m("/images/profile/profile.jpeg", 764, 1280, "Portrait de Pape Djibril Sène", {
+  profile: m("/images/profile/profile.jpeg", 764, 1280, "Portrait de Pape Djibril SÉNE", {
     position: "50% 30%",
   }),
 } as const;
@@ -161,6 +161,14 @@ export const kaaraangeMedia = {
     1080,
     "Mise au point du dispositif Kaaraange"
   ),
+  /** Cut-out render of the device, transparent background. */
+  bin: m(
+    "/images/projects/kaaraange/poubelle-kaaraange.png",
+    1296,
+    1666,
+    "Le dispositif Kaaraange, conteneur intelligent de déchets biomédicaux",
+    { position: "50% 50%" }
+  ),
 } as const;
 
 export const tukkiMedia = {
@@ -178,6 +186,12 @@ export const tukkiMedia = {
  * ------------------------------------------------------------------ */
 
 export const achievementMedia = {
+  orangePrize: m(
+    "/images/journey/prix-orange-summer-challenge.png",
+    1632,
+    862,
+    "Prix Orange Summer Challenge 2025 remis pour le projet Kaaraange"
+  ),
   /**
    * NOTE ON FILENAMES: `geneva-medal.jpeg` is the file that carries the
    * word "DIPLÔME" on the page (confirmed by OCR of the source scan), and
@@ -195,7 +209,7 @@ export const achievementMedia = {
     "/images/achievements/geneva-medal.jpeg",
     810,
     1080,
-    "Diplôme original du Salon International des Inventions de Genève délivré à Pape Djibril Sène"
+    "Diplôme original du Salon International des Inventions de Genève délivré à Pape Djibril SÉNE"
   ),
   eurochamPrize: m(
     "/images/achievements/eurocham-prize.jpeg",
@@ -229,12 +243,14 @@ export const mediaIndex = {
   bench1: kaaraangeMedia.bench1,
   bench2: kaaraangeMedia.bench2,
   bench3: kaaraangeMedia.bench3,
+  bin: kaaraangeMedia.bin,
 
   tukkiTeam: tukkiMedia.team,
 
   genevaCertificate: achievementMedia.genevaCertificate,
   genevaMedal: achievementMedia.genevaMedal,
   eurochamPrize: achievementMedia.eurochamPrize,
+  orangePrize: achievementMedia.orangePrize,
 } as const;
 
 export type MediaIndexKey = keyof typeof mediaIndex;

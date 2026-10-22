@@ -19,7 +19,7 @@ export const brand = {
   /** The personal universe / signature. */
   mark: "BAAYCODE",
   /** The person behind it. */
-  person: "Pape Djibril Sène",
+  person: "Pape Djibril SÉNE",
   /** Monogram, used in the navbar and as the favicon mark. */
   monogram: "PDS",
   /** The narrative promise of the whole site. */
@@ -35,7 +35,7 @@ export const brand = {
 };
 
 export const profile = {
-  name: "Pape Djibril Sène",
+  name: "Pape Djibril SÉNE",
   role: "Développeur Full-Stack & IoT",
   valueProposition:
     "Je conçois des solutions numériques qui transforment des problèmes réels en systèmes intelligents — du capteur au Cloud, de l'interface au déploiement.",
@@ -128,7 +128,7 @@ export const stats = [
 
 export const story = {
   eyebrow: "My Story",
-  heading: ["Une licence", "enfin utilisée", "au bon endroit"],
+  heading: ["La technique", "au service", "du terrain"],
   paragraphs: [
     "J'ai commencé par apprendre le web : HTML, CSS, JavaScript, puis PHP et Java. Chaque projet confirmait qu'une théorie devenait un formulaire qui marchait vraiment. C'est ce qui m'a conduit vers l'IoT : voir un capteur, une donnée, une décision, un effet physique.",
     "Kaaraange est la forme complète de cette façon de travailler. Un problème réel — la gestion des déchets biomédicaux — traité comme un système : identifier, tracer, notifier, prouver. Du microcontrôleur jusqu'à l'interface, sans rupture.",
@@ -551,11 +551,13 @@ export const journey: JourneyStop[] = [
 /** One original document, exactly as delivered — never cropped or retouched. */
 export type DistinctionDoc = {
   /** Key into lib/media.ts's flat index — see `getMedia`. */
-  key: "genevaCertificate" | "genevaMedal" | "eurochamPrize";
+  key: "genevaCertificate" | "genevaMedal" | "eurochamPrize" | "orangePrize";
   /** Which document this is, when an award produced more than one. */
   label: string;
   /** Rotation applied to the document object, in degrees. */
   tilt: number;
+  /** How the image fills its plate. Defaults to a cropped cover. */
+  fit?: "cover" | "contain";
 };
 
 export type Distinction = {
@@ -583,7 +585,7 @@ export const distinctions: Distinction[] = [
     result: "Lauréat",
     project: "Kaaraange",
     href: "/kaaraange",
-    docs: [],
+    docs: [{ key: "orangePrize", label: "Prix", tilt: -1.4, fit: "contain" }],
     note: "Projet Kaaraange sélectionné et primé lors de la session 2025.",
   },
   {
@@ -850,8 +852,8 @@ export const kaaraangeCase = {
       { label: "DynamoDB", sub: "Stockage en base NoSQL" },
       { label: "Interface React", sub: "Tableau de suivi & visualisation" },
     ],
-    /** Team photograph shown beside the diagram. */
-    media: "team" as const,
+    /** Cut-out render of the device shown beside the diagram. */
+    media: "bin" as const,
   },
 
   hardware: {
@@ -944,9 +946,9 @@ export const kaaraangeCase = {
  * ------------------------------------------------------------------ */
 
 export const seo = {
-  title: "Pape Djibril Sène — Full-Stack Developer & IoT | BaayCode",
+  title: "Pape Djibril SÉNE — Full-Stack Developer & IoT | BaayCode",
   description:
-    "Portfolio de Pape Djibril Sène, développeur Full-Stack & IoT basé au Sénégal, spécialisé dans les applications web, les systèmes IoT et les solutions Cloud.",
+    "Portfolio de Pape Djibril SÉNE, développeur Full-Stack & IoT basé au Sénégal, spécialisé dans les applications web, les systèmes IoT et les solutions Cloud.",
   locale: "fr_FR",
   twitterCreator: undefined as string | undefined,
 };

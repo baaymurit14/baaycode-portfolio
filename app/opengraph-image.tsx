@@ -147,7 +147,7 @@ export default async function OpengraphImage() {
               display: "flex",
             }}
           >
-            PAPE DJIBRIL SÈNE
+            PAPE DJIBRIL SÉNE
           </div>
           <div
             style={{

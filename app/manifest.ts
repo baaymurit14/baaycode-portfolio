@@ -3,10 +3,10 @@ import { siteUrl } from "@/lib/data";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "BAAYCODE — Pape Djibril Sène",
+    name: "BAAYCODE — Pape Djibril SÉNE",
     short_name: "BAAYCODE",
     description:
-      "Pape Djibril Sène — Développeur Full-Stack & IoT. Applications Web, systèmes IoT et solutions Cloud.",
+      "Pape Djibril SÉNE — Développeur Full-Stack & IoT. Applications Web, systèmes IoT et solutions Cloud.",
     start_url: "/",
     display: "standalone",
     background_color: "#0A0D10",

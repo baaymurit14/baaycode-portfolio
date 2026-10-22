@@ -63,10 +63,10 @@ export default function Hero() {
             {/* The name is the headline of the whole site. */}
             <h1
               id="hero-name"
-              className="hero-title-glow mt-7 font-display font-bold uppercase text-display-xl"
+              className="hero-title-glow mt-7 font-display font-bold uppercase text-display-lg"
             >
               <RevealLines
-                lines={["Pape", "Djibril", "Sène"]}
+                lines={["Pape", "Djibril", "SÉNE"]}
                 mode="mount"
                 accent="last"
                 delay={0.08}
@@ -118,59 +118,65 @@ export default function Hero() {
             delay={0.3}
             duration={1.1}
             scale={0.97}
-            className="relative lg:col-span-5 lg:justify-self-end"
+            className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:col-span-5 lg:mx-0 lg:max-w-none lg:justify-self-end"
           >
-            <figure className="relative">
-              {/* Offset copper plate behind the photograph — a print mis-
-                  registered by a hair. Purely graphic, no card, no shadow. */}
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-3 -right-3 -z-10 h-full w-full border border-copper/35 sm:-bottom-4 sm:-right-4"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute -left-3 -top-3 -z-10 h-full w-full border border-signal/20 sm:-left-4 sm:-top-4"
-              />
+            <div className="lg:flex lg:items-stretch lg:justify-end lg:gap-8 xl:gap-10">
+              <SignalRail />
 
-              <div className="relative overflow-hidden bg-base-raised">
-                <Image
-                  src={media.hero.src}
-                  alt={media.hero.alt}
-                  width={media.hero.w}
-                  height={media.hero.h}
-                  // The hero is the LCP element: preloaded, not lazy, and
-                  // served as WebP/AVIF by the image optimizer.
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="aspect-[4/5] w-full object-cover sm:aspect-[3/4] lg:aspect-[4/5]"
-                  style={{ objectPosition: media.hero.position }}
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-base-deep/70 via-transparent to-transparent"
-                />
+              <div className="lg:w-[360px] lg:shrink-0">
+                <figure className="relative">
+                  {/* Offset copper plate behind the photograph — a print mis-
+                      registered by a hair. Purely graphic, no card, no shadow. */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -bottom-3 -right-3 -z-10 h-full w-full border border-copper/35 sm:-bottom-4 sm:-right-4"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute -left-3 -top-3 -z-10 h-full w-full border border-signal/20 sm:-left-4 sm:-top-4"
+                  />
+
+                  <div className="relative overflow-hidden bg-base-raised">
+                    <Image
+                      src={media.hero.src}
+                      alt={media.hero.alt}
+                      width={media.hero.w}
+                      height={media.hero.h}
+                      // The hero is the LCP element: preloaded, not lazy, and
+                      // served as WebP/AVIF by the image optimizer.
+                      priority
+                      sizes="(max-width: 640px) 300px, (max-width: 1024px) 340px, 360px"
+                      className="aspect-[3/4] w-full object-cover"
+                      style={{ objectPosition: media.hero.position }}
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-base-deep/70 via-transparent to-transparent"
+                    />
+                  </div>
+
+                  {/* Technical readout, seated on the photo's lower edge. */}
+                  <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 p-4 sm:p-5">
+                    <span className="hud-panel !border-white/10 !bg-base-deep/70 !text-ink-muted">
+                      {profile.role}
+                    </span>
+                    <span className="hud-panel !border-white/10 !bg-base-deep/70 !text-signal">
+                      Dakar · SN
+                    </span>
+                  </div>
+                </figure>
+
+                {/* Brand signature: BAAYCODE as the mark of the work, not the
+                    person's job title. */}
+                <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
+                  <BrandMark size="md" className="text-ink" />
+                  <Monogram size="xs" />
+                </div>
+                <p className="mt-3 font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-ink-faint">
+                  {brand.thesisFr} — {brand.thesis}
+                </p>
               </div>
-
-              {/* Technical readout, seated on the photo's lower edge. */}
-              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 p-4 sm:p-5">
-                <span className="hud-panel !border-white/10 !bg-base-deep/70 !text-ink-muted">
-                  {profile.role}
-                </span>
-                <span className="hud-panel !border-white/10 !bg-base-deep/70 !text-signal">
-                  Dakar · SN
-                </span>
-              </div>
-            </figure>
-
-            {/* Brand signature: BAAYCODE as the mark of the work, not the
-                person's job title. */}
-            <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
-              <BrandMark size="md" className="text-ink" />
-              <Monogram size="xs" />
             </div>
-            <p className="mt-3 font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-ink-faint">
-              {brand.thesisFr} — {brand.thesis}
-            </p>
           </Enter>
         </div>
 
@@ -199,5 +205,48 @@ export default function Hero() {
         </Enter>
       </div>
     </section>
+  );
+}
+
+/**
+ * Signal rail — fills the negative space between the identity copy and the
+ * portrait on wide screens. Its three stops mirror the three layers of the
+ * work (web, IoT, cloud), so the gap reads as a system diagram rather than
+ * dead air.
+ */
+function SignalRail() {
+  const stops = [
+    { index: "01", label: "Web" },
+    { index: "02", label: "IoT" },
+    { index: "03", label: "Cloud" },
+  ];
+
+  return (
+    <div
+      aria-hidden="true"
+      className="hidden w-[128px] shrink-0 flex-col self-stretch py-2 xl:flex"
+    >
+      <span className="pad-label pad-label--signal">Signal</span>
+
+      <div className="relative mt-5 flex flex-1 flex-col justify-between border-l border-line-strong pl-5">
+        {stops.map((stop) => (
+          <div key={stop.label} className="relative">
+            <span className="absolute -left-[23px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rotate-45 border border-signal/70 bg-base" />
+            <span className="block font-mono text-[9px] uppercase tracking-[0.22em] text-ink-faint">
+              {stop.index}
+            </span>
+            <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+              {stop.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <span className="mt-5 font-mono text-[9px] uppercase leading-relaxed tracking-[0.2em] text-ink-faint">
+        Du capteur
+        <br />
+        au cloud
+      </span>
+    </div>
   );
 }

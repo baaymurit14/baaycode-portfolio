@@ -423,17 +423,28 @@ function Architecture() {
             </div>
           </div>
 
-          <figure className="lg:col-span-5">
-            <MediaFrame
-              media={getMedia(k.architecture.media)}
-              aspect="aspect-[4/5]"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              depth={12}
-            />
+          <figure className="relative lg:col-span-5">
+            <div className="relative isolate flex items-center justify-center py-4">
+              {/* Signal glow behind the cut-out, so the transparent PNG sits
+                  in the page instead of floating on a hard rectangle. */}
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-3/4 w-3/4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal/10 blur-3xl"
+              />
+              <Image
+                src={getMedia(k.architecture.media).src}
+                alt={getMedia(k.architecture.media).alt}
+                width={getMedia(k.architecture.media).w}
+                height={getMedia(k.architecture.media).h}
+                sizes="(max-width: 1024px) 90vw, 420px"
+                loading="lazy"
+                className="relative mx-auto h-auto w-full max-w-[420px] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] animate-chipFloat motion-reduce:animate-none"
+              />
+            </div>
             <Caption
-              context="Équipe"
-              text="Après l'Orange Summer Challenge 2025"
-              accent="copper"
+              context="Dispositif"
+              text="Conteneur intelligent — prototype Kaaraange"
+              accent="signal"
             />
           </figure>
         </div>
@@ -630,7 +641,7 @@ function Results() {
                 heading={["La", "reconnaissance"]}
                 lede={k.recognition.body}
                 accent="copper"
-                headingClassName="text-display-md"
+                headingClassName="text-[clamp(2rem,4vw,4.75rem)]"
               />
               <Reveal delay={0.16}>
                 <Link href="/#recognition" className="btn-ghost mt-10">
@@ -682,7 +693,11 @@ function Results() {
                           height={media.h}
                           loading="lazy"
                           sizes="(max-width: 640px) 100vw, 30vw"
-                          className="aspect-[3/4] w-full object-cover object-top transition-transform duration-[1000ms] ease-editorial group-hover:scale-[1.04]"
+                          className={`aspect-[3/4] w-full transition-transform duration-[1000ms] ease-editorial group-hover:scale-[1.04] ${
+                            doc.fit === "contain"
+                              ? "object-contain p-3"
+                              : "object-cover object-top"
+                          }`}
                         />
                         <div
                           aria-hidden="true"

@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   keywords: [
     "BAAYCODE",
-    "Pape Djibril Sène",
+    "Pape Djibril SÉNE",
     "Développeur Full-Stack",
     "Développeur IoT",
     "Kaaraange",
@@ -131,7 +131,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#person`,
       name: brand.person,
       url: siteUrl,
-      image: `${siteUrl}/images/profile/hero.jpeg`,
+      image: `${siteUrl}/images/profile/profile.jpeg`,
       email: `mailto:${profile.email}`,
       jobTitle: profile.role,
       description: profile.valueProposition,

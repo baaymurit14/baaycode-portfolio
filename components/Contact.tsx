@@ -32,7 +32,7 @@ export default function Contact() {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "in/pape-djibril-sène",
+      value: "in/pape-djibril-séne",
       href: profile.linkedin,
       external: true,
     },

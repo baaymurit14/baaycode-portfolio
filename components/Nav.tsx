@@ -10,7 +10,7 @@ import Monogram from "./Monogram";
  * Fixed navigation.
  *
  * - Left: PDS monogram + BAAYCODE wordmark. The brand leads, the name is one
- *   hover away — matching the BAAYCODE / Pape Djibril Sène hierarchy.
+ *   hover away — matching the BAAYCODE / Pape Djibril SÉNE hierarchy.
  * - Centre: the narrative movements, with the active section underlined.
  * - Right: the domain, doubling as proof the site is deployed.
  * - A 1px copper progress line at the very top reports reading position.
