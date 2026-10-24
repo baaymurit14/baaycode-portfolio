@@ -54,7 +54,7 @@ export default function Contact() {
               heading={contact.heading}
               lede={contact.body}
               accent="copper"
-              headingClassName="text-display-md"
+              headingClassName="text-display-md break-words"
             />
 
             <Reveal delay={0.16}>

@@ -179,7 +179,7 @@ function MobileMenu() {
       >
         <span
           className={`block h-px w-5 bg-ink transition-transform duration-300 ${
-            open ? "translate-y-[3px] rotate-45" : ""
+            open ? "translate-y-[6px] rotate-45" : ""
           }`}
         />
         <span
@@ -189,7 +189,7 @@ function MobileMenu() {
         />
         <span
           className={`block h-px w-5 bg-ink transition-transform duration-300 ${
-            open ? "-translate-y-[3px] -rotate-45" : ""
+            open ? "-translate-y-[6px] -rotate-45" : ""
           }`}
         />
       </button>
@@ -198,71 +198,78 @@ function MobileMenu() {
           real element; `hidden` keeps it out of the tab order when closed. */}
       <div
         id="mobile-nav"
-        hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-line bg-base/97 backdrop-blur-xl lg:top-16"
+        aria-hidden={!open}
+        className={`fixed inset-x-0 top-[64px] bottom-0 z-[60] overflow-y-auto border-t border-line bg-base/97 backdrop-blur-xl transition-opacity duration-200 lg:top-[72px] ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
-          <div className="container-bleed flex min-h-full flex-col py-8">
-            <ul className="flex flex-col">
-              {nav.map((item, i) => (
-                <li key={item.id} className="border-b border-line/70">
-                  <a
-                    href={`/#${item.id}`}
-                    onClick={() => setOpen(false)}
-                    className="flex items-baseline gap-4 py-3.5"
+        <div className="container-bleed flex min-h-full flex-col py-8">
+          <ul className="flex flex-col">
+            {nav.map((item, i) => (
+              <li key={item.id} className="border-b border-line/70">
+                <a
+                  href={`/#${item.id}`}
+                  tabIndex={open ? 0 : -1}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline gap-4 py-3.5"
+                >
+                  <span className="font-mono text-[10px] text-ink-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`font-display text-2xl uppercase ${
+                      active === item.id ? "text-copper" : "text-ink"
+                    }`}
                   >
-                    <span className="font-mono text-[10px] text-ink-faint">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={`font-display text-2xl uppercase ${
-                        active === item.id ? "text-copper" : "text-ink"
-                      }`}
-                    >
-                      {item.label}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+                    {item.label}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
 
-            <div className="mt-auto space-y-5 pt-10">
+          <div className="mt-auto space-y-5 pt-10">
+            <a
+              href={`mailto:${profile.email}`}
+              tabIndex={open ? 0 : -1}
+              onClick={() => setOpen(false)}
+              className="btn-primary w-full justify-center"
+            >
+              {profile.email}
+            </a>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a
-                href={`mailto:${profile.email}`}
-                onClick={() => setOpen(false)}
-                className="btn-primary w-full justify-center"
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer noopener"
+                tabIndex={open ? 0 : -1}
+                className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
               >
-                {profile.email}
+                GitHub
               </a>
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
-                <a
-                  href={profile.github}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
-                >
-                  GitHub
-                </a>
-                <a
-                  href={profile.linkedin}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href={profile.phone.replace(/\s/g, "")}
-                  className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
-                >
-                  {profile.phone}
-                </a>
-              </div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-                {domain} — {brand.thesisFr}
-              </p>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+                tabIndex={open ? 0 : -1}
+                className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
+              >
+                LinkedIn
+              </a>
+              <a
+                href={profile.phone.replace(/\s/g, "")}
+                tabIndex={open ? 0 : -1}
+                className="font-mono text-[11px] uppercase tracking-wide2 text-ink-muted hover:text-signal"
+              >
+                {profile.phone}
+              </a>
             </div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+              {domain} — {brand.thesisFr}
+            </p>
           </div>
         </div>
+      </div>
     </div>
   );
 }

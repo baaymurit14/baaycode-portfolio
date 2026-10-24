@@ -21,7 +21,7 @@ export default function NotFound() {
       </p>
       <div className="mt-12 flex flex-wrap items-center gap-4">
         <Link href="/" className="btn-primary">
-          Retour à l&apos;index
+          Retour à l&apos;accueil
         </Link>
         <Link href="/kaaraange" className="btn-ghost">
           Voir Kaaraange

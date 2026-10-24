@@ -98,7 +98,7 @@ function Hero() {
               </div>
             </Reveal>
 
-            <h1 className="mt-7 font-display text-display-xl uppercase text-ink">
+            <h1 className="mt-7 font-display text-display-xl uppercase text-ink break-words">
               {k.name}
             </h1>
 

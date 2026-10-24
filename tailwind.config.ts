@@ -54,11 +54,11 @@ const config: Config = {
        * as graphic elements, not as labels. clamp() keeps them fluid from
        * 375px to 1920px without a single media query. */
       fontSize: {
-        "display-xl": ["clamp(3.25rem, 15vw, 13rem)", { lineHeight: "0.84", letterSpacing: "-0.045em" }],
-        "display-lg": ["clamp(2.75rem, 10.5vw, 8.5rem)", { lineHeight: "0.88", letterSpacing: "-0.04em" }],
-        "display-md": ["clamp(2.1rem, 6.2vw, 4.75rem)", { lineHeight: "0.94", letterSpacing: "-0.032em" }],
-        "display-sm": ["clamp(1.6rem, 3.4vw, 2.6rem)", { lineHeight: "1.02", letterSpacing: "-0.022em" }],
-        "lede": ["clamp(1.05rem, 1.75vw, 1.4rem)", { lineHeight: "1.5", letterSpacing: "-0.012em" }],
+        "display-xl": ["clamp(2.75rem, 14vw, 13rem)", { lineHeight: "0.84", letterSpacing: "-0.045em" }],
+        "display-lg": ["clamp(2.4rem, 10vw, 8.5rem)", { lineHeight: "0.88", letterSpacing: "-0.04em" }],
+        "display-md": ["clamp(1.9rem, 6vw, 4.75rem)", { lineHeight: "0.94", letterSpacing: "-0.032em" }],
+        "display-sm": ["clamp(1.5rem, 4vw, 2.6rem)", { lineHeight: "1.02", letterSpacing: "-0.022em" }],
+        "lede": ["clamp(1rem, 1.8vw, 1.4rem)", { lineHeight: "1.5", letterSpacing: "-0.012em" }],
         "micro": ["0.6875rem", { lineHeight: "1.1", letterSpacing: "0.22em" }],
       },
 

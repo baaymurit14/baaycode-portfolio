@@ -43,7 +43,7 @@ export default function Manifesto() {
             <span className="pad-label pad-label--copper">La thèse</span>
             <h2
               id="manifesto-heading"
-              className="mt-6 font-display text-display-md uppercase text-ink sm:text-display-lg"
+              className="mt-6 font-display text-display-md uppercase text-ink sm:text-display-lg break-words"
             >
               <span className="block text-ink-faint">From ideas</span>
               <span className="block text-copper">to systems</span>

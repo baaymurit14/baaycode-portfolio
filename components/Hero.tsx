@@ -63,7 +63,7 @@ export default function Hero() {
             {/* The name is the headline of the whole site. */}
             <h1
               id="hero-name"
-              className="hero-title-glow mt-7 font-display font-bold uppercase text-display-lg"
+              className="hero-title-glow mt-7 font-display font-bold uppercase text-display-lg break-words hyphens-none"
             >
               <RevealLines
                 lines={["Pape", "Djibril", "SÉNE"]}
@@ -118,13 +118,13 @@ export default function Hero() {
             delay={0.3}
             duration={1.1}
             scale={0.97}
-            className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:col-span-5 lg:mx-0 lg:max-w-none lg:justify-self-end"
-          >
-            <div className="lg:flex lg:items-stretch lg:justify-end lg:gap-8 xl:gap-10">
-              <SignalRail />
+          className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:col-span-5 lg:mx-0 lg:max-w-none lg:justify-self-end"
+        >
+          <div className="lg:flex lg:items-stretch lg:justify-end lg:gap-8 xl:gap-10">
+            <SignalRail />
 
-              <div className="lg:w-[360px] lg:shrink-0">
-                <figure className="relative">
+            <div className="lg:w-[360px] lg:shrink-0">
+              <figure className="relative overflow-visible">
                   {/* Offset copper plate behind the photograph — a print mis-
                       registered by a hair. Purely graphic, no card, no shadow. */}
                   <div

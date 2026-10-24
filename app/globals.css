@@ -12,6 +12,7 @@
     scroll-behavior: smooth;
     /* Clears the fixed 64px header when jumping to an anchor. */
     scroll-padding-top: 88px;
+    overflow-x: clip;
   }
 
   body {
@@ -19,7 +20,7 @@
     font-feature-settings: "ss1" on, "ss2" on, "cv1" on;
     /* Horizontal overflow is the #1 cause of mobile layout breaks with large
        display type and 3D canvases. */
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* The marquee and oversized headings are decorative overflow; without this

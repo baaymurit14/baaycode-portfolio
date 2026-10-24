@@ -48,7 +48,7 @@ export const profile = {
 };
 
 export const nav = [
-  { id: "hero", label: "Index" },
+  { id: "hero", label: "Accueil" },
   { id: "story", label: "Histoire" },
   { id: "build", label: "Je construis" },
   { id: "work", label: "Projets" },

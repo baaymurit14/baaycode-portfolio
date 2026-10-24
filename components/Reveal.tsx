@@ -271,26 +271,27 @@ export function RevealLines({
   return (
     <span ref={ref} className={className}>
       {lines.map((line, i) => (
-        <span
-          key={line + i}
-          aria-hidden="true"
-          className={`line-mask ${lineClassName} ${
-            isAccent(i) ? "text-copper" : ""
-          }`}
-        >
-          <span
-            style={{
-              display: "block",
-              transform:
-                phase === "hidden" ? "translate3d(0,110%,0)" : "translate3d(0,0,0)",
-              transition: reduce
-                ? "none"
-                : `transform ${duration}s ${EASE} ${delay + i * stagger}s`,
-            }}
-          >
-            {line}
-          </span>
-        </span>
+    <span
+      key={line + i}
+      aria-hidden="true"
+      className={`line-mask ${lineClassName} ${
+        isAccent(i) ? "text-copper" : ""
+      }`}
+    >
+      <span
+        style={{
+          display: "block",
+          transform:
+            phase === "hidden" ? "translate3d(0,110%,0)" : "translate3d(0,0,0)",
+          transition: reduce
+            ? "none"
+            : `transform ${duration}s ${EASE} ${delay + i * stagger}s`,
+          willChange: "transform",
+        }}
+      >
+        {line}
+      </span>
+    </span>
       ))}
       <span className="sr-only">{lines.join(" ")}</span>
     </span>
