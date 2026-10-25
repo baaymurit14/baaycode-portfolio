@@ -391,7 +391,7 @@ function Architecture() {
     >
       <div className="container-bleed">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <SectionHead
               headingId="k-architecture"
               eyebrow={`04 — ${k.architecture.label}`}
@@ -402,13 +402,19 @@ function Architecture() {
             />
 
             {/* The layered diagram. Pure SVG/CSS, no images. */}
-            <div className="mt-12 overflow-x-auto border border-line bg-base-panel/60 p-6 sm:p-9">
-              <div className="flex min-w-[380px] flex-col items-center">
+            <div className="mt-12 overflow-x-auto border border-line bg-base-panel/60 p-4 sm:p-9">
+              <div className="flex w-full min-w-0 flex-col items-center">
                 {k.architecture.layers.map((layer, i) => (
-                  <Reveal key={layer.label} delay={0.06 + i * 0.06} className="w-full max-w-md">
-                    <div className="border border-line-strong bg-base px-5 py-4 text-center transition-colors duration-300 hover:border-signal/50">
-                      <p className="font-display text-base text-ink">{layer.label}</p>
-                      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                  <Reveal
+                    key={layer.label}
+                    delay={0.06 + i * 0.06}
+                    className="w-full min-w-0 max-w-md"
+                  >
+                    <div className="border border-line-strong bg-base px-4 py-4 text-center transition-colors duration-300 hover:border-signal/50 sm:px-5">
+                      <p className="break-words font-display text-sm text-ink sm:text-base">
+                        {layer.label}
+                      </p>
+                      <p className="mt-1 break-words font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
                         {layer.sub}
                       </p>
                     </div>
@@ -423,8 +429,8 @@ function Architecture() {
             </div>
           </div>
 
-          <figure className="relative lg:col-span-5">
-            <div className="relative isolate flex items-center justify-center py-4">
+          <figure className="relative min-w-0 lg:col-span-5">
+            <div className="relative isolate flex w-full min-w-0 items-center justify-center py-4">
               {/* Signal glow behind the cut-out, so the transparent PNG sits
                   in the page instead of floating on a hard rectangle. */}
               <div
@@ -438,7 +444,7 @@ function Architecture() {
                 height={getMedia(k.architecture.media).h}
                 sizes="(max-width: 1024px) 90vw, 420px"
                 loading="lazy"
-                className="relative mx-auto h-auto w-full max-w-[420px] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] animate-chipFloat motion-reduce:animate-none"
+                className="relative mx-auto h-auto w-full min-w-0 max-w-[420px] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] animate-chipFloat motion-reduce:animate-none"
               />
             </div>
             <Caption
