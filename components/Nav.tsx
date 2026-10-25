@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { brand, nav, profile, siteUrl } from "@/lib/data";
 import BrandMark from "./BrandMark";
 import Monogram from "./Monogram";
@@ -133,6 +134,11 @@ export default function Nav() {
 function MobileMenu() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("hero");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Lock body scroll while the panel is open so the page behind doesn't move.
   useEffect(() => {
@@ -194,15 +200,18 @@ function MobileMenu() {
         />
       </button>
 
-      {/* Always mounted so `aria-controls` on the trigger always resolves to a
-          real element; `hidden` keeps it out of the tab order when closed. */}
-      <div
-        id="mobile-nav"
-        aria-hidden={!open}
-        className={`fixed inset-x-0 top-[64px] bottom-0 z-[60] overflow-y-auto border-t border-line bg-base/97 backdrop-blur-xl transition-opacity duration-200 lg:top-[72px] ${
-          open ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
+      {/* Rendered through a portal: the header's backdrop-filter creates a
+          containing block, which would collapse this fixed panel to 0px once
+          the header is scrolled. */}
+      {mounted &&
+        createPortal(
+          <div
+            id="mobile-nav"
+            aria-hidden={!open}
+            className={`fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto border-t border-line bg-base/97 backdrop-blur-xl transition-opacity duration-200 lg:top-[72px] ${
+              open ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
         <div className="container-bleed flex min-h-full flex-col py-8">
           <ul className="flex flex-col">
             {nav.map((item, i) => (
@@ -269,7 +278,9 @@ function MobileMenu() {
             </p>
           </div>
         </div>
-      </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
