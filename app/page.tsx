@@ -11,6 +11,52 @@ import Capabilities from "@/components/Capabilities";
 import Vision from "@/components/Vision";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { projects, seo, siteUrl } from "@/lib/data";
+
+/**
+ * Home-page structured data.
+ *
+ * The Person/WebSite/Organization nodes live in the root layout; this graph
+ * adds the page type and the project list, both linked by `@id`.
+ */
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/#profile`,
+      url: `${siteUrl}/`,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: "fr-FR",
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      mainEntity: { "@id": `${siteUrl}/#person` },
+      about: { "@id": `${siteUrl}/#person` },
+      hasPart: { "@id": `${siteUrl}/#projects` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${siteUrl}/#projects`,
+      name: "Projets sélectionnés",
+      numberOfItems: projects.length,
+      itemListElement: projects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: project.name,
+          alternateName: project.subtitle,
+          description: project.summary,
+          author: { "@id": `${siteUrl}/#person` },
+          ...(project.href ? { url: `${siteUrl}${project.href}` } : {}),
+          ...(project.tech.length
+            ? { keywords: project.tech.join(", ") }
+            : {}),
+        },
+      })),
+    },
+  ],
+};
 
 /**
  * BAAYCODE — narrative order.
@@ -31,6 +77,11 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // Static, developer-authored JSON-LD — no user input reaches this.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       <Nav />
       <main id="main">
         <Hero />

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   description: seo.description,
   applicationName: brand.mark,
-  authors: [{ name: brand.person, url: siteUrl }],
+  authors: [{ name: brand.person, url: `${siteUrl}/` }],
   creator: brand.person,
   publisher: brand.mark,
   category: "technology",
@@ -44,11 +44,11 @@ export const metadata: Metadata = {
   keywords: [
     "BAAYCODE",
     "Pape Djibril SÉNE",
-    "Développeur Full-Stack",
-    "Développeur IoT",
+    "développeur Full-Stack Dakar",
+    "développeur IoT Sénégal",
+    "portfolio développeur Sénégal",
     "Kaaraange",
-    "Dakar",
-    "Sénégal",
+    "gestion des déchets biomédicaux",
     "Spring Boot",
     "React",
     "AWS IoT Core",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
-    url: siteUrl,
+    url: `${siteUrl}/`,
     siteName: brand.mark,
     locale: seo.locale,
     title: seo.title,
@@ -96,6 +96,13 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -107,31 +114,43 @@ export const viewport: Viewport = {
 };
 
 /**
- * Structured data. Two graphs:
+ * Structured data. Three linked entities:
+ *  - Organization: the BAAYCODE studio/brand.
  *  - Person: who the site is about.
- *  - WebSite: the BAAYCODE brand surface.
- * Claims are limited to what is actually documented in lib/data.ts — the
- * current role is Full-Stack & IoT; cloud/security are listed as goalsOf, not
- * as a job title.
+ *  - WebSite: the BAAYCODE surface.
+ * Claims are limited to what is actually documented in lib/data.ts.
  */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: brand.mark,
+      url: `${siteUrl}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/apple-icon`,
+      },
+      description: `${brand.mark} — ${brand.tagline}. ${brand.thesisFr}.`,
+      founder: { "@id": `${siteUrl}/#person` },
+    },
+    {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       name: brand.mark,
       alternateName: brand.person,
       description: seo.description,
       inLanguage: "fr-FR",
-      publisher: { "@id": `${siteUrl}/#person` },
+      publisher: { "@id": `${siteUrl}/#organization` },
+      about: { "@id": `${siteUrl}/#person` },
     },
     {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
       name: brand.person,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       image: `${siteUrl}/images/profile/profile.jpeg`,
       email: `mailto:${profile.email}`,
       jobTitle: profile.role,
@@ -158,7 +177,7 @@ const jsonLd = {
         "@type": "CollegeOrUniversity",
         name: "Université Alioune Diop de Bambey",
       },
-      goalsOf: ["Cloud", "Cybersécurité", "DevSecOps"],
+      affiliation: { "@id": `${siteUrl}/#organization` },
     },
   ],
 };

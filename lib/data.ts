@@ -9,7 +9,12 @@
  * confirmed is left empty and the UI degrades gracefully instead of lying.
  */
 
-export const siteUrl = "https://baaycode.com";
+/**
+ * Canonical origin. Vercel serves the apex domain through a 308 redirect to
+ * `www`, so every canonical, sitemap and structured-data URL must use `www` to
+ * avoid pointing search engines at a redirect.
+ */
+export const siteUrl = "https://www.baaycode.com";
 
 /* ------------------------------------------------------------------ *
  * BRAND
@@ -946,9 +951,9 @@ export const kaaraangeCase = {
  * ------------------------------------------------------------------ */
 
 export const seo = {
-  title: "Pape Djibril SÉNE — Full-Stack Developer & IoT | BaayCode",
+  title: "Pape Djibril SÉNE — Développeur Full-Stack & IoT | BAAYCODE",
   description:
-    "Portfolio de Pape Djibril SÉNE, développeur Full-Stack & IoT basé au Sénégal, spécialisé dans les applications web, les systèmes IoT et les solutions Cloud.",
+    "Portfolio de Pape Djibril SÉNE, développeur Full-Stack & IoT à Dakar : applications web, systèmes IoT et solutions Cloud. Découvrez Kaaraange et mes projets.",
   locale: "fr_FR",
   twitterCreator: undefined as string | undefined,
 };

@@ -19,29 +19,51 @@ import {
 } from "@/lib/data";
 import { getMedia, type MediaIndexKey } from "@/lib/media";
 
+const project = projects.find((p) => p.slug === "kaaraange")!;
+const k = kaaraangeCase;
+const kaaraangeDescription =
+  "Kaaraange : système IoT de gestion des déchets biomédicaux — tri, identification sans contact et supervision Cloud. Projet primé en 2025.";
+
 export const metadata: Metadata = {
-  title: "Kaaraange — Système intelligent de gestion des déchets biomédicaux",
-  description: projects.find((p) => p.slug === "kaaraange")!.summary,
+  title: "Kaaraange — Déchets biomédicaux intelligents",
+  description: kaaraangeDescription,
+  keywords: [
+    "Kaaraange",
+    "gestion des déchets biomédicaux",
+    "déchets médicaux",
+    "IoT santé",
+    "AWS IoT Core",
+    "Spring Boot",
+    "React",
+    "ESP32",
+    "RFID/NFC",
+    "Sénégal",
+  ],
   alternates: { canonical: "/kaaraange" },
   openGraph: {
     type: "article",
     url: `${siteUrl}/kaaraange`,
-    title: "Kaaraange — Système intelligent de gestion des déchets biomédicaux",
-    description: projects.find((p) => p.slug === "kaaraange")!.summary,
+    siteName: brand.mark,
+    title: "Kaaraange — Déchets biomédicaux intelligents",
+    description: kaaraangeDescription,
     locale: "fr_FR",
     images: [
       {
         url: "/kaaraange/opengraph-image",
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Kaaraange — dispositif IoT de gestion des déchets biomédicaux",
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kaaraange — Déchets biomédicaux intelligents",
+    description: kaaraangeDescription,
+    images: ["/kaaraange/opengraph-image"],
+  },
 };
-
-const k = kaaraangeCase;
-const project = projects.find((p) => p.slug === "kaaraange")!;
 
 /** The three distinctions that belong to Kaaraange (MIABE is Tukki's). */
 const kaaraangeDistinctions = distinctions.filter((d) => d.project === "Kaaraange");
@@ -63,6 +85,57 @@ const kaaraangePlates: KaaraangePlate[] = kaaraangeDistinctions.reduce<
   }
   return acc;
 }, []);
+
+/**
+ * Case-study structured data: the work itself plus the breadcrumb trail. The
+ * Person and WebSite nodes are declared once in the root layout and referenced
+ * here by `@id`.
+ */
+const kaaraangeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "@id": `${siteUrl}/kaaraange/#project`,
+      name: project.name,
+      alternateName: project.subtitle,
+      description: project.description,
+      url: `${siteUrl}/kaaraange`,
+      author: { "@id": `${siteUrl}/#person` },
+      creator: { "@id": `${siteUrl}/#person` },
+      keywords: project.tech.join(", "),
+      about: [
+        { "@type": "Thing", name: "Gestion des déchets biomédicaux" },
+        { "@type": "Thing", name: "Internet of Things" },
+        { "@type": "Thing", name: "Cloud" },
+      ],
+      inLanguage: "fr-FR",
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      award: kaaraangeDistinctions.map(
+        (distinction) =>
+          `${distinction.result} — ${distinction.org} (${distinction.year})`,
+      ),
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${siteUrl}/kaaraange/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: `${siteUrl}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Kaaraange",
+          item: `${siteUrl}/kaaraange`,
+        },
+      ],
+    },
+  ],
+};
 
 /* ================================================================== *
  * HERO
@@ -806,6 +879,11 @@ function ClosingGallery() {
 export default function KaaraangePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // Static, developer-authored JSON-LD — no user input reaches this.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(kaaraangeJsonLd) }}
+      />
       <Nav />
       <main id="main">
         <Hero />
