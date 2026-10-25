@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import { siteUrl, brand, profile, seo } from "@/lib/data";
 import "./globals.css";
 
@@ -188,6 +189,7 @@ export default function RootLayout({
           Aller au contenu
         </a>
         {children}
+        <Analytics />
         {/* Film plane over the whole document. Purely decorative. */}
         <div className="grain-overlay" aria-hidden="true" />
       </body>
