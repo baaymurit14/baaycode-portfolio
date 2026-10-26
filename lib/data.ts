@@ -50,6 +50,7 @@ export const profile = {
   github: "https://github.com/baaymurit14",
   linkedin:
     "https://www.linkedin.com/in/pape-djibril-s%C3%A9ne-a36b6b303/",
+  cv: "/CV PAPE DJIBRIL SENE.pdf",
 };
 
 export const nav = [

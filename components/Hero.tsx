@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Download } from "lucide-react";
 import { brand, profile, stats } from "@/lib/data";
 import { media } from "@/lib/media";
 import { Enter, RevealLines } from "./Reveal";
@@ -107,6 +108,15 @@ export default function Hero() {
                 <span className="scan-sweep" aria-hidden="true" />
                 Voir les projets
               </Link>
+              <a
+                href={encodeURI(profile.cv)}
+                download="CV-Pape-Djibril-SENE.pdf"
+                aria-label="Télécharger le CV de Pape Djibril SÉNE au format PDF"
+                className="btn-ghost"
+              >
+                <Download size={15} strokeWidth={1.6} aria-hidden="true" />
+                Télécharger mon CV
+              </a>
               <Link href="/#contact" className="btn-ghost">
                 Me contacter
               </Link>

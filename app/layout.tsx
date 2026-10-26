@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import ScrollToTop from "@/components/ScrollToTop";
 import { siteUrl, brand, profile, seo } from "@/lib/data";
 import "./globals.css";
 
@@ -207,6 +208,7 @@ export default function RootLayout({
         >
           Aller au contenu
         </a>
+        <ScrollToTop />
         {children}
         <Analytics />
         {/* Film plane over the whole document. Purely decorative. */}
